@@ -13,7 +13,7 @@ class HeaderComponent extends Component {
           <span className="bar-icon">
             <i className="fad fa-bars"></i>
           </span>
-          <a className="navbar-brand" herf="/">
+          <a className="navbar-brand" href="/">
             <img src="disney-hotstar-logo-dark.svg" alt="logo" />
           </a>
           <button
