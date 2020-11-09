@@ -76,7 +76,7 @@ class HeaderComponent extends Component {
                 />
                 <span style={{ position: "relative" }}>
                   <i
-                    class="fas fa-search"
+                    className="fas fa-search"
                     style={{
                       position: "absolute",
                       top: "-5px",
