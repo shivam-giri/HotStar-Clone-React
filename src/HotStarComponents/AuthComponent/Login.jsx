@@ -17,6 +17,7 @@ class Login extends Component {
   };
   handleSubmit = async (e) => {
     let { email, password } = this.state;
+    let { history, match } = this.props;
     try {
       e.preventDefault();
       let userInfo = await firebase
@@ -24,7 +25,7 @@ class Login extends Component {
         .signInWithEmailAndPassword(email, password);
       if (userInfo.user.emailVerified) {
         console.log(userInfo);
-        // history.push("/"); //not refreshing
+        history.push("/"); //not refreshing
         toast.success("successfully logged in");
       } else {
         let errorMessage = `${email} is not verified please verify it`;
@@ -72,7 +73,14 @@ class Login extends Component {
                       Login
                     </button>
                   </div>
+
                   <div className="form-group">
+                    <span
+                      className="float-right d-block hr password-reset"
+                      style={{ width: "100%", margin: "8px 0px" }}
+                    >
+                      <Link to="/password-reset">Forgot password</Link>
+                    </span>
                     <span>
                       Don't have an account Please
                       <Link

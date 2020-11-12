@@ -84,3 +84,33 @@
   box-shadow: none;
   transition: ease-in-out 0.5s all;
 }
+
+.navbar-nav.ml-auto img {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+}
+
+.dropdownMenu {
+  display: none;
+  list-style: none;
+  background: rgb(103 58 183);
+  position: absolute;
+  top: 57px;
+  width: 166px;
+  left: -106px;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.dropdownMenu a {
+  color: #fff;
+}
+
+.profile_block {
+  position: relative;
+}
+
+.profile_block:hover .dropdownMenu {
+  display: block;
+}

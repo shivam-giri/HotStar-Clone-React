@@ -1,12 +1,63 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./HeaderStyle.css";
+import firebase from "../../Firebase";
+import { toast } from "react-toastify";
 class HeaderComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user: " "
+    };
   }
+  singOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then((_) => {
+        toast.success("successfully user signout");
+        this.props.history.push("/login");
+      })
+      .catch((err) => toast.error(err.message));
+  };
   render() {
+    let { photoURL, displayName, email } = this.props.user;
+
+    let AnonymousUser = () => {
+      return (
+        <Fragment>
+          <li className="nav-item">
+            <Link className="nav-link text-uppercase" to="/login">
+              Login
+            </Link>
+          </li>
+        </Fragment>
+      );
+    };
+    let AuthUser = () => {
+      return (
+        <Fragment>
+          <li className="nav-item profile_block">
+            <a className="nav-link text-uppercase">
+              <img src={photoURL} alt={displayName} />
+            </a>
+            <ul className="dropdownMenu">
+              <li>
+                <a href="/">WatchList</a>
+              </li>
+              <li>
+                <a href="/">{displayName}</a>
+              </li>
+              <li>
+                <a href="/" onClick={this.singOut}>
+                  signout
+                </a>
+              </li>
+            </ul>
+          </li>
+        </Fragment>
+      );
+    };
     return (
       <Fragment>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,7 +80,7 @@ class HeaderComponent extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedConten">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
+              <li className="nav-item active">
                 <a className="nav-link" href="/">
                   TV
                 </a>
@@ -91,11 +142,8 @@ class HeaderComponent extends Component {
                   subscribe
                 </a>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link text-uppercase" to="/login">
-                  login
-                </Link>
-              </li>
+
+              {this.props.user ? <AuthUser /> : <AnonymousUser />}
             </ul>
           </div>
         </nav>
@@ -104,4 +152,4 @@ class HeaderComponent extends Component {
   }
 }
 
-export default HeaderComponent;
+export default withRouter(HeaderComponent);

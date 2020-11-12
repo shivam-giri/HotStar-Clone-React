@@ -33,3 +33,11 @@
   margin: 10px;
   border-radius: 2px;
 }
+
+.password-reset a {
+  border: none !important;
+  color: rgb(255 255 255);
+  text-align: right;
+  display: block;
+  margin: -10px -9px 10px;
+}

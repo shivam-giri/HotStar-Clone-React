@@ -14,10 +14,11 @@ class Register extends Component {
       email: ""
     };
   }
+  //handle change event
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
+  //handle submit
   handleSubmit = async (e) => {
     let { username, password, phone, email } = this.state;
     console.log(phone);
@@ -34,7 +35,7 @@ class Register extends Component {
       toast.success(verifiicationMessage);
       console.log(userInfo);
 
-      //update profilr including user photo, phone nunbr, id , whateve
+      //update profile including user photo, phone nunbr, id , whateve
       await userInfo.user.updateProfile({
         displayName: username,
         photoURL: `https://www.gravatar.com/avatar/${md5(
@@ -59,8 +60,8 @@ class Register extends Component {
         email: ""
       });
     } catch (err) {
-      toast.error(err.message);
       console.error(err);
+      toast.error(err.message);
     }
   };
 
