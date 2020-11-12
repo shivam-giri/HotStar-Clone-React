@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { toast } from "react-toastify";
-import firebase from "../../Firebase";
+import firebase from "../../firebase";
 import md5 from "md5";
 import { Link } from "react-router-dom";
 // import "./Auth-Style.css";

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import "./Auth-Style.css";
-import firebase from "../../Firebase";
+import firebase from "../../firebase";
 import { toast } from "react-toastify";
 class Login extends Component {
   constructor(props) {

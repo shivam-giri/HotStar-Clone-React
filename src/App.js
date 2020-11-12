@@ -5,7 +5,7 @@ import Login from "./HotStarComponents/AuthComponent/Login";
 import Register from "./HotStarComponents/AuthComponent/Register";
 import HeaderComponent from "./HotStarComponents/HeaderComponent/Header";
 
-import firebase from "./Firebase";
+import firebase from "./firebase";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

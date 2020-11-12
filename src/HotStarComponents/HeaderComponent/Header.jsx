@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./HeaderStyle.css";
-import firebase from "../../Firebase";
+import firebase from "../../firebase";
 import { toast } from "react-toastify";
 class HeaderComponent extends Component {
   constructor(props) {
