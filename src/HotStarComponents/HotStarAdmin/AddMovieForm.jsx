@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import firebase from "../../firebase";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
+import { video } from "video-metadata-thumbmnail";
 
 class AddMovieForm extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class AddMovieForm extends Component {
       rating: 0,
       language: "",
       type: "",
-      video: null,
+      video: "",
       url: "",
       progress: 0,
       barStatus: false,
@@ -53,8 +54,9 @@ class AddMovieForm extends Component {
           );
           this.setState({ progress: progressStatus, barStatus: true });
         },
-        () => {
+        (err) => {
           //error handling
+          console.log(err);
         },
         () => {
           //completion of status and connect to database
@@ -73,7 +75,7 @@ class AddMovieForm extends Component {
                   .ref("hotstarMovies")
                   .push({ ...movieDetails });
                 toast.success("successfully movie ceated");
-                this.props.history.push("/");
+                // this.props.history.push("/");
               });
             })
             .catch((err) => console.log(err));
@@ -99,9 +101,16 @@ class AddMovieForm extends Component {
     } = this.state;
 
     let progressBar = (
-      <progress max="100" value={progress} style={{ width: "100%" }}>
-        {progress}
-      </progress>
+      <Fragment>
+        <progress
+          max="100"
+          value={progress}
+          style={{ width: "100%", position: "absolute", top: "30%" }}
+        >
+          {progress}
+        </progress>
+        <span>{progress}</span>
+      </Fragment>
     );
 
     return (
@@ -142,7 +151,7 @@ class AddMovieForm extends Component {
                     <div className="col-md-5">
                       <div className="form-group">
                         {barStatus ? progressBar : null}
-                        <label htmlFor="language">UploadMovie</label>
+                        <label htmlFor="language">Upload Movie</label>
                         <input
                           type="file"
                           className="form-control"

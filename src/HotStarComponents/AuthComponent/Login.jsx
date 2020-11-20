@@ -36,6 +36,7 @@ class Login extends Component {
       toast.error(err.message);
     }
   };
+
   render() {
     let { email, password } = this.state;
     return (
@@ -72,6 +73,13 @@ class Login extends Component {
                     <button className="btn btn-block btn-outline-primary">
                       Login
                     </button>
+                  </div>
+                  <div className="form-group">
+                    <span>
+                      <Link to="/phone-auth" className="phone_auth_block">
+                        login with phone Number
+                      </Link>
+                    </span>
                   </div>
 
                   <div className="form-group">

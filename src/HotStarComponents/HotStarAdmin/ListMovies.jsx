@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import firebase from "../../firebase";
 
@@ -7,7 +7,7 @@ class ListMovies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [],
+      movies: []
     };
   }
 
@@ -19,6 +19,7 @@ class ListMovies extends Component {
         let movieInfo = [];
         hotstarMovies.forEach((movie) => {
           movieInfo.push({
+            _id: movie.val().id,
             id: movie.key,
             url: movie.val().url,
             name: movie.val().name,
@@ -27,7 +28,7 @@ class ListMovies extends Component {
             type: movie.val().type,
             language: movie.val().language,
             year: movie.val().year,
-            user: this.props.user,
+            user: this.props.user
           });
         });
         this.setState({ movies: movieInfo });
@@ -38,25 +39,45 @@ class ListMovies extends Component {
       toast.error(err.message);
     }
   }
+
   render() {
     let Movies = this.state.movies.map((movie) => (
       <Fragment key={movie.id}>
-        <div className="col-md-3">
-          <video controls>
-            <source src={movie.url}></source>
-          </video>
-          <h5>{movie.name}</h5>
-          <p>{movie.year}</p>
-          <p>{movie.description}</p>
-          <p>{movie.type}</p>
-          <p>{movie.language}</p>
-          <p>{movie.rating}</p>
-          <p>
-            uploaded By : <span>{movie.user.displayName}</span>
-            <span>
-              <img src={movie.user.photoURL} alt={movie.user.displayName} />
-            </span>
-          </p>
+        <div className="col-md-2 thumbnail_video_block">
+          <div className="videoBlock">
+            <video className="thumbnail_video">
+              <source src={movie.url}></source>
+            </video>
+            <div className="videoContentBlock">
+              <h5>{movie.name}</h5>
+              <div className="movieContentBlock">
+                <p>{movie.type},</p>
+                <p>{movie.language},</p>
+                <p>{movie.year},</p>
+              </div>
+
+              <p className="movieDescriptionBlock">{movie.description}</p>
+              <p className="watchMovieBlock">
+                <span>
+                  <span>
+                    <i className="fas fa-play"></i>
+                  </span>
+                  <Link
+                    to={{
+                      pathname: `list-movie/${movie.name}/${movie.id}`,
+                      state: {
+                        id: movie.id,
+                        name: movie.name,
+                        url: movie.url
+                      }
+                    }}
+                  >
+                    Watch Movie
+                  </Link>
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
       </Fragment>
     ));

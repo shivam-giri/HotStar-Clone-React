@@ -22,7 +22,6 @@ class HeaderComponent extends Component {
   };
   render() {
     let { photoURL, displayName, email } = this.props.user;
-
     let AnonymousUser = () => {
       return (
         <Fragment>
@@ -48,8 +47,13 @@ class HeaderComponent extends Component {
               <li>
                 <a href="/">{displayName}</a>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link text-uppercase" to="/upload-movies">
+                  Upload Movies
+                </Link>
+              </li>
               <li>
-                <a href="/" onClick={this.singOut}>
+                <a href="/login" onClick={this.singOut}>
                   signout
                 </a>
               </li>
@@ -142,8 +146,12 @@ class HeaderComponent extends Component {
                   subscribe
                 </a>
               </li>
-
-              {this.props.user ? <AuthUser /> : <AnonymousUser />}
+              {this.props.user.emailVerified ||
+              this.props.user.isAnonymous === false ? (
+                <AuthUser />
+              ) : (
+                <AnonymousUser />
+              )}
             </ul>
           </div>
         </nav>
