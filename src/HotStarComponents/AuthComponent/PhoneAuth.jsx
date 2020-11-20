@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import firebase from "../../firebase";
 import { toast } from "react-toastify";
 class PhoneAuth extends Component {

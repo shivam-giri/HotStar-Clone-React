@@ -17,7 +17,7 @@ class Login extends Component {
   };
   handleSubmit = async (e) => {
     let { email, password } = this.state;
-    let { history, match } = this.props;
+    let { history } = this.props;
     try {
       e.preventDefault();
       let userInfo = await firebase

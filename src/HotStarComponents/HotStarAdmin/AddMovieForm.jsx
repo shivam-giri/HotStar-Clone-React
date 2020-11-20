@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import firebase from "../../firebase";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Video } from "video-metadata-thumbnails";
+// import { Video } from "video-metadata-thumbnails";
 class AddMovieForm extends Component {
   constructor(props) {
     super(props);
