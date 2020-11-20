@@ -1,16 +1,17 @@
 import React, { Component, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import "./HeaderStyle.css";
-import firebase from "../../firebase";
 import { toast } from "react-toastify";
+import firebase from "../../firebase";
+import "./HeaderStyle.css";
 class HeaderComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: " "
+      user: ""
     };
   }
-  singOut = () => {
+
+  signOut = () => {
     firebase
       .auth()
       .signOut()
@@ -20,19 +21,22 @@ class HeaderComponent extends Component {
       })
       .catch((err) => toast.error(err.message));
   };
+
   render() {
     let { photoURL, displayName, email } = this.props.user;
+
     let AnonymousUser = () => {
       return (
         <Fragment>
           <li className="nav-item">
             <Link className="nav-link text-uppercase" to="/login">
-              Login
+              login
             </Link>
           </li>
         </Fragment>
       );
     };
+
     let AuthUser = () => {
       return (
         <Fragment>
@@ -42,7 +46,7 @@ class HeaderComponent extends Component {
             </a>
             <ul className="dropdownMenu">
               <li>
-                <a href="/">WatchList</a>
+                <a href="/">Watchlist</a>
               </li>
               <li>
                 <a href="/">{displayName}</a>
@@ -53,7 +57,7 @@ class HeaderComponent extends Component {
                 </Link>
               </li>
               <li>
-                <a href="/login" onClick={this.singOut}>
+                <a href="/login" onClick={this.signOut}>
                   signout
                 </a>
               </li>
@@ -69,7 +73,7 @@ class HeaderComponent extends Component {
             <i className="fad fa-bars"></i>
           </span>
           <a className="navbar-brand" href="/">
-            <img src="disney-hotstar-logo-dark.svg" alt="logo" />
+            <img src="/disney-hotstar-logo-dark.svg" alt="logo" />
           </a>
           <button
             className="navbar-toggler"
@@ -82,7 +86,7 @@ class HeaderComponent extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedConten">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="/">
@@ -90,9 +94,9 @@ class HeaderComponent extends Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/list-movies">
                   Movies
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">

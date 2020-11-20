@@ -2,8 +2,7 @@ import React, { Component, Fragment } from "react";
 import firebase from "../../firebase";
 import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
-import { video } from "video-metadata-thumbmnail";
-
+import { Video } from "video-metadata-thumbnails";
 class AddMovieForm extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,7 @@ class AddMovieForm extends Component {
       rating: 0,
       language: "",
       type: "",
+      duration: "",
       video: "",
       url: "",
       progress: 0,
@@ -25,11 +25,12 @@ class AddMovieForm extends Component {
   }
 
   handleChange = (e) => {
-    //handle values
+    // handling value
     this.setState({ [e.target.name]: e.target.value });
   };
+
   handleUploadFiles = (e) => {
-    //handing files like uload file
+    //handling files like upload files
     if (e.target.files[0]) {
       this.setState({ video: e.target.files[0] });
     }
@@ -39,6 +40,7 @@ class AddMovieForm extends Component {
     e.preventDefault();
     try {
       let { video } = this.state;
+      //MovieTask
       let MovieTask = firebase
         .storage()
         .ref(`/hotstarMovies/${video.name}`)
@@ -48,10 +50,10 @@ class AddMovieForm extends Component {
       MovieTask.on(
         "state_changed",
         (snapShot) => {
-          //pregress status
+          //progress status
           let progressStatus = Math.round(
             (snapShot.bytesTransferred / snapShot.totalBytes) * 100
-          );
+          ); //current status
           this.setState({ progress: progressStatus, barStatus: true });
         },
         (err) => {
@@ -60,7 +62,7 @@ class AddMovieForm extends Component {
         },
         () => {
           //completion of status and connect to database
-          // get  download url
+          //get download url
           firebase
             .storage()
             .ref("hotstarMovies")
@@ -68,13 +70,15 @@ class AddMovieForm extends Component {
             .getDownloadURL()
             .then((url) => {
               this.setState({ url }, () => {
-                //connect to real time database
+                //connect to real time database;
                 let movieDetails = this.state;
                 firebase
                   .database()
-                  .ref("hotstarMovies")
-                  .push({ ...movieDetails });
-                toast.success("successfully movie ceated");
+                  .ref("hotstarMovie")
+                  .push({
+                    ...movieDetails
+                  });
+                toast.success("successfully movie created");
                 // this.props.history.push("/");
               });
             })
@@ -148,15 +152,15 @@ class AddMovieForm extends Component {
                         />
                       </div>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-6">
                       <div className="form-group">
                         {barStatus ? progressBar : null}
                         <label htmlFor="language">Upload Movie</label>
                         <input
                           type="file"
+                          capture
                           className="form-control"
                           name="video"
-                          value={video}
                           onChange={this.handleUploadFiles}
                           required
                         />
@@ -216,7 +220,6 @@ class AddMovieForm extends Component {
                         />
                       </div>
                     </div>
-
                     <div className="col-md-3">
                       <div className="form-group">
                         <label htmlFor="type">Type</label>

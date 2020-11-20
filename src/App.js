@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Route, Switch, Link, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import firebase from "./firebase";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

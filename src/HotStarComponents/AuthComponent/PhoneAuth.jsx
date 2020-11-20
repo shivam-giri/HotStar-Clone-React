@@ -87,4 +87,5 @@ class PhoneAuth extends Component {
     );
   }
 }
+
 export default withRouter(PhoneAuth);
